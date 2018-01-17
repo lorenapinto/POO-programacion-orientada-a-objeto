@@ -1,0 +1,139 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+
+
+using namespace std;
+
+class hora
+{
+private:
+	int hra;
+	int min;
+	int seg;
+public:
+	hora ()
+	{
+		hra=0;
+		min=0;
+		seg=0;
+	}
+	void setHra(int h)
+	{
+		hra=h;
+	}
+	void setMin(int m)
+	{
+		min=m;
+	}
+	void setSeg(int s)
+	{
+		seg=s;
+	}
+	int getHra ()
+	{
+		return hra;
+	}
+	int getMin ()
+	{
+		return min;
+	}
+	int getSeg ()
+	{
+		return seg;
+	}
+	void leerHora()
+	{
+		int h,m,s;
+		cout<<"Hora: "; 
+	    cin>>h;
+	    hra=h; //cuando esta dentro de la clase no uso set y get. solo los uso cuando esta fuera de la clase. como aqui esta dentro de la clase lo pongo asi
+		cout<<"Minuto: ";
+		cin>>m;
+		min=m;
+		cout<<"Segundo: ";
+		cin>>s;
+		seg=s;	
+	}
+
+	void mostrarHora ()
+	{
+		cout<<endl;
+		cout<<hra<<":"<<min<<":"<<seg<<endl;
+	}
+
+	void aumentar1seg ()
+	{
+		int h,m,s, aumentado;
+		int haum,maum,saum;
+		h=hra*3600;
+		m=min*60;
+		s=seg;
+		aumentado=h+m+s+1;
+
+		haum=aumentado/3600;
+		maum=(aumentado%3600)/60;
+		saum=(aumentado%3600)%60;
+
+		hra=haum;
+		min=maum;
+		seg=saum;
+		if (hra==24)
+		{
+			hra=0;
+		}
+
+	}
+
+	void diferencia (hora H1, hora H2)
+	{
+		int h1,m1,s1;
+		int h2,m2,s2;
+		int total1,total2,total3,htotal,mtotal,stotal;
+
+		h1=(H1.getHra())*3600;
+		m1=(H1.getMin ())*60;
+		s1=(H1.getSeg ());
+
+		h2=(H2.getHra())*3600;
+		m2=(H2.getMin ())*60;
+		s2=(H2.getSeg ());
+		
+		total1= h1+m1+s1;
+		total2= h2+m2+s2;
+		total3= total2-total1;
+
+		htotal=total3/3600;
+		mtotal=(total3%3600)/60;
+		stotal=(total3%3600)%60;
+
+		setHra(htotal);
+		setMin(mtotal);
+		setSeg(stotal);
+	}
+
+};
+
+void main()
+{
+	hora H1,H2,H3;
+	cout<<"		HORA 1	"<<endl;
+	H1.leerHora();
+	H1.mostrarHora ();
+
+	cout<<"		HORA 2	"<<endl;
+	H2.leerHora();
+	H2.mostrarHora ();
+
+	H3.diferencia(H1,H2);
+	cout<<"La diferencia entre las dos horas es: "<<endl;
+	H3.mostrarHora();
+
+	H1.aumentar1seg();
+	cout<<"La hora 1 igresada aumentada 1 segundo es: "<<endl;
+	H1.mostrarHora ();
+	cout<<endl;
+
+	getch();
+}
