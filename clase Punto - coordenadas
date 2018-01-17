@@ -36,26 +36,26 @@ public:
 	void mostrarCuadrante () // le pongo punto y coma: mostrarCuadrante (); cuando voy a desarrollar la funcion fuera de la clase.
 	{
 		if (x==0 && y==0)
-			cout<<"Esta en el origen ";
+			cout<<"Esta en el origen "<<endl;
 
 		if (x>0 && y>0)
-			cout<<"Esta en el primer cuadrante ";
+			cout<<"Esta en el primer cuadrante "<<endl;
 
 		if (x<0 && y>0)
-			cout<<"Esta en el segundo cuadrante ";
+			cout<<"Esta en el segundo cuadrante "<<endl;
 
 		if (x<0 && y<0)
-			cout<<"Esta en el tercer cuadrante ";
+			cout<<"Esta en el tercer cuadrante "<<endl;
 
 		if (x>0 && y<0)
-			cout<<"Esta en el cuarto cuadrante ";
+			cout<<"Esta en el cuarto cuadrante "<<endl;
 
 	}
 	void distancia_al_origen ()
 	{
 		float d;
 		d=sqrt(powf(x,2)+powf(y,2));
-		cout<<"La distancia al origen es: "<<d;
+		cout<<"La distancia al origen es: "<<d<<endl;
 	}
 	float distancia_entre_dos_puntos (punto p2) // el punto 1 llama a la funcion y el punto 2 entra por parametro 
 	{
@@ -64,6 +64,13 @@ public:
 		float b=(p2.getY() - getY());
 		return sqrt((a*a)+(b*b));
 		
+	}
+	bool lineaVertical (punto p2)
+	{
+		if (p2.getX() == getX() )
+			return true;
+		else
+			return false;
 	}
 }; // cuando cierro la clase siempre poner punto y coma (;)
 
@@ -96,8 +103,17 @@ void main()
 	p2.mostrarCuadrante();
 	p2.distancia_al_origen();
 	cout<<endl;
-	cout<<"Distancia de p1 a p2: "<<endl;
+
+	cout<<"Distancia de p1 a p2 es: ";
 	d=p1.distancia_entre_dos_puntos(p2);
-	cout<<d;
+	cout<<d<<endl;
+	cout<<"Ambos puntos: "<<endl;
+
+	if (p1.lineaVertical(p2))
+			cout<<"Son verticales "<<endl;
+		else
+			cout<<"No son verticales "<<endl;
+
+
 	getch();
 }
