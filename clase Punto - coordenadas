@@ -57,10 +57,10 @@ public:
 		d=sqrt(powf(x,2)+powf(y,2));
 		cout<<"La distancia al origen es: "<<d<<endl;
 	}
-	float distancia_entre_dos_puntos (punto p2) // el punto 1 llama a la funcion y el punto 2 entra por parametro 
+	float distancia_entre_dos_puntos (punto p2) // el punto 1 llama a la funcion y el punto 2 entra por parametro, por eso solo se pone p2 en el parametro
 	{
 		
-		float a=(p2.getX() - getX());
+		float a=(p2.getX() - getX()); // no le pongo p1.getX() porque el p1 fue el que llamo a la funcion, solo se lo pone para los parametros
 		float b=(p2.getY() - getY());
 		return sqrt((a*a)+(b*b));
 		
@@ -115,5 +115,7 @@ void main()
 			cout<<"No son verticales "<<endl;
 
 
+	// verificar si dos rectas son paralelas o perpendiculares
+	//si formasn un cuadrado o un triangulo
 	getch();
 }
