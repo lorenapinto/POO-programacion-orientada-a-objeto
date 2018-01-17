@@ -1,0 +1,96 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+
+using namespace std;
+
+const int diaMes[13]={0,31,28,31,30,31,30,31,31,30,31,30,31};
+class fecha
+{
+private:
+	int dia;
+	int mes;
+	int anho;
+public:
+		fecha ()
+		{
+			
+		}
+		void setDia (int d)
+		{
+			dia=d;
+		}
+		void setMes (int m)
+		{
+			mes=m;
+		}
+		void setAnho (int a)
+		{
+			anho=a;
+		}
+		int getDia ()
+		{
+			return dia;
+		}
+		int getMes ()
+		{
+			return mes;
+		}
+		int getAnho ()
+		{
+			return anho;
+		}
+		void leerFecha ()
+		{
+			int d,m,a;
+			cout<<"Dia: ";
+			cin>>d;
+			dia=d;
+			cout<<"Mes: ";
+			cin>>m;
+			mes=m;
+			cout<<"Anho: ";
+			cin>>a;
+			anho=a;
+		}
+		void mostrarFecha ()
+		{
+			cout<<endl;
+			cout<<dia<<"-"<<mes<<"-"<<anho<<endl;
+		}
+		void manhana()
+		{
+			if(dia==diaMes[mes])
+			{
+				dia=1;
+				if(mes==12)
+				{
+					mes=1;
+					anho=anho+1;
+				}
+				else
+				{
+					mes=mes+1;
+				}
+			}
+			else
+			{
+				dia=dia+1;
+			}
+
+		}
+};
+
+
+void main ()
+{
+	fecha f1;
+	cout<<"		FECHA 1		"<<endl;
+	f1.leerFecha();
+	f1.mostrarFecha();
+	f1.manhana();
+	cout<<endl<<"Fecha aumentada 1 dia: "<<endl;
+	f1.mostrarFecha();
+	getch();
+}
