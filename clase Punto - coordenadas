@@ -1,6 +1,7 @@
 #include "stdafx.h"
 #include "conio.h"
 #include <iostream>
+#include "math.h"
 
 
 using namespace std;
@@ -50,6 +51,20 @@ public:
 			cout<<"Esta en el cuarto cuadrante ";
 
 	}
+	void distancia_al_origen ()
+	{
+		float d;
+		d=sqrt(powf(x,2)+powf(y,2));
+		cout<<"La distancia al origen es: "<<d;
+	}
+	float distancia_entre_dos_puntos (punto p2) // el punto 1 llama a la funcion y el punto 2 entra por parametro 
+	{
+		
+		float a=(p2.getX() - getX());
+		float b=(p2.getY() - getY());
+		return sqrt((a*a)+(b*b));
+		
+	}
 }; // cuando cierro la clase siempre poner punto y coma (;)
 
 
@@ -57,6 +72,7 @@ void main()
 {
 	punto p1,p2;
 	int a1,a2,b1,b2;
+	float d;
 	// quiero que mi p1 tenga las coordenadas (2,1) por eso hago:
 	
 	cout<<"Punto 1: "<<endl;
@@ -67,7 +83,9 @@ void main()
 	cin>>b1;
 	p1.setY(b1);
 	p1.mostrarCuadrante();
+	p1.distancia_al_origen();
 	cout<<endl;
+
 	cout<<endl<<"Punto 2: "<<endl;
 	cout<<"x= ";
 	cin>>a2;
@@ -75,7 +93,11 @@ void main()
 	cout<<"y= ";
 	cin>>b2;
 	p2.setY(b2);
-	
 	p2.mostrarCuadrante();
+	p2.distancia_al_origen();
+	cout<<endl;
+	cout<<"Distancia de p1 a p2: "<<endl;
+	d=p1.distancia_entre_dos_puntos(p2);
+	cout<<d;
 	getch();
 }
