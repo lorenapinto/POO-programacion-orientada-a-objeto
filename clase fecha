@@ -80,17 +80,42 @@ public:
 			}
 
 		}
+		bool verificarFecha()
+		{
+			if (dia>diaMes[mes])
+				return false;
+			else
+			{
+				if (mes>12)
+					return false;
+				else
+				{
+					if (anho<=0)
+						return false;
+					else
+						return true;
+				}
+			}
+		}
 };
 
 
 void main ()
 {
 	fecha f1;
+
 	cout<<"		FECHA 1		"<<endl;
 	f1.leerFecha();
 	f1.mostrarFecha();
-	f1.manhana();
-	cout<<endl<<"Fecha aumentada 1 dia: "<<endl;
-	f1.mostrarFecha();
+	if (f1.verificarFecha())
+	{
+		cout<<"La fecha ingresada es correcta "<<endl;
+		f1.manhana();
+		cout<<endl<<"Fecha aumentada 1 dia: "<<endl;
+		f1.mostrarFecha();
+	}
+	else
+		cout<<"La fecha ingresada es incorrecta, no se puede calcular nada "<<endl;
+	
 	getch();
 }
