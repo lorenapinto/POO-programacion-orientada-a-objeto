@@ -1,0 +1,81 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+
+using namespace std;
+
+class punto
+{
+private: // en private siempre van los atributos de la clase
+	int x;
+	int y;
+public:
+	punto() //es la inicializacion (clasificacion), cuando empiece el programa yo quiero que comiencen en la coordenada (0,0),si fuera un nombre le pongo cadena vacia y asi... es el valor que yo deseo darle
+	{
+		x=0, y=0;
+	}
+	void setX(int a)
+	{
+		x=a;
+	}
+	void setY(int b)
+	{
+		y=b;
+	}
+	//como mis valores X y Y son enteros, mi get va a devolver enteros
+	int getX ()
+	{
+		return x;
+	}
+	int getY ()
+	{
+		return y;
+	}
+	void mostrarCuadrante () // le pongo punto y coma: mostrarCuadrante (); cuando voy a desarrollar la funcion fuera de la clase.
+	{
+		if (x==0 && y==0)
+			cout<<"Esta en el origen ";
+
+		if (x>0 && y>0)
+			cout<<"Esta en el primer cuadrante ";
+
+		if (x<0 && y>0)
+			cout<<"Esta en el segundo cuadrante ";
+
+		if (x<0 && y<0)
+			cout<<"Esta en el tercer cuadrante ";
+
+		if (x>0 && y<0)
+			cout<<"Esta en el cuarto cuadrante ";
+
+	}
+}; // cuando cierro la clase siempre poner punto y coma (;)
+
+
+void main()
+{
+	punto p1,p2;
+	int a1,a2,b1,b2;
+	// quiero que mi p1 tenga las coordenadas (2,1) por eso hago:
+	
+	cout<<"Punto 1: "<<endl;
+	cout<<"x= ";
+	cin>>a1;
+	p1.setX(a1);
+	cout<<"y= ";
+	cin>>b1;
+	p1.setY(b1);
+	p1.mostrarCuadrante();
+	cout<<endl;
+	cout<<endl<<"Punto 2: "<<endl;
+	cout<<"x= ";
+	cin>>a2;
+	p2.setX(a2);
+	cout<<"y= ";
+	cin>>b2;
+	p2.setY(b2);
+	
+	p2.mostrarCuadrante();
+	getch();
+}
