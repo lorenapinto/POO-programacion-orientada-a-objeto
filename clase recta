@@ -1,0 +1,114 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+
+using namespace std;
+
+class recta
+{
+private:
+		float x1;
+		float y1;
+		float x2;
+		float y2;
+public:
+	recta ()
+	{
+		x1=0;
+		y1=0;
+		x2=0;
+		y2=0;
+	}
+	void setX1 (float a)
+	{
+		x1=a;
+	}
+	void setX2 (float b)
+	{
+		x2=b;
+	}
+	void setY1 (float c)
+	{
+		y1=c;
+	}
+	void setY2 (float d)
+	{
+		y2=d;
+	}
+	float getX1 ()
+	{
+		return x1;
+	}
+	float getX2 ()
+	{
+		return x2;
+	}
+	float getY1 ()
+	{
+		return y1;
+	}
+	float getY2 ()
+	{
+		return y2;
+	}
+	void leerRecta ()
+	{
+		float a,b,c,d;
+		cout<<"Primer punto de la recta: "<<endl;
+		cout<<"X1 = ";
+		cin>>a;
+		x1=a;
+		cout<<"Y1 = ";
+		cin>>b;
+		y1=b;
+		cout<<"Segundo punto de la recta: "<<endl;
+		cout<<"X2 = ";
+		cin>>c;
+		x2=c;
+		cout<<"Y2 = ";
+		cin>>d;
+		y2=d;
+	}
+	void mostrarRecta ()
+	{
+		cout<<"Primer punto : ("<<x1<<","<<y1<<")"<<endl;
+		cout<<"Segundo punto : ("<<x2<<","<<y2<<")"<<endl;
+	}
+	float pendiente ()
+	{
+		float pend;
+		pend= (y2-y1)/(x2-x1);
+		return pend;
+	}
+
+	bool paralelo (recta R2)
+	{
+		float m1,m2;
+		m1=pendiente();
+		m2=R2.pendiente();
+		if (m1==m2)
+			return true;
+		else
+			return false;
+	}
+};
+
+void main()
+{ 
+	recta R1,R2;
+
+	cout<<"----------RECTA 1----------"<<endl;
+	R1.leerRecta ();
+	R1.mostrarRecta ();
+	
+	cout<<endl<<"----------RECTA 2----------"<<endl;
+	R2.leerRecta ();
+	R2.mostrarRecta ();
+
+	if (R1.paralelo(R2))
+		cout<<"Ambas rectas son paralelas ";
+	else
+		cout<<"Ambas rectas no son paralelas ";
+	getch();
+}
