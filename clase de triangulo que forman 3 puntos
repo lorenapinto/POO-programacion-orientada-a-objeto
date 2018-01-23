@@ -1,0 +1,118 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+
+
+using namespace std;
+
+class punto 
+{
+private:
+	float x;
+	float y;
+public:
+	punto ()
+	{
+		x=0;
+		y=0;
+	}
+	void setX (float a)
+	{
+		x=a;
+	}
+	void setY (float b)
+	{
+		y=b;
+	}
+	float getX()
+	{
+		return x;
+	}
+	float getY()
+	{
+		return y;
+	}
+	void leer();
+	void mostrar();
+	void esTriangulo (punto P2, punto P3);
+	float distancia (punto P2);
+
+};
+
+void punto:: leer()
+{
+	float a,b;
+	cout<<"Coordenada en  X: ";
+	cin>>a;
+	setX(a);
+	cout<<"Coordenada en  Y: ";
+	cin>>b;
+	setY(b);
+}
+
+void punto::mostrar()
+{
+	cout<<"("<<x<<","<<y<<")"<<endl;
+}
+float punto:: distancia (punto P2)
+{
+	float a,b,d;
+	a= (P2.getX()-getX());
+	b= (P2.getY()-getY());
+	d=sqrt(powf(a,2)+powf(b,2));
+	return d;
+
+}
+
+void punto::esTriangulo (punto P2, punto P3)
+{
+	float d1,d2,d3;
+	d1=distancia(P2);
+	d2=P2.distancia (P3);
+	d3=distancia(P3);
+	cout<<d1<<endl<<d2<<endl<<d3<<endl;
+	if (d1==d2 && d2==d3)
+	{
+		cout<<"**TRIANGULO EQUILATERO"<<endl;
+	}
+
+		if ((d1==d2 && d2!=d3) || (d2==d3 && d3!=d1) || (d3==d1 && d1!=d2))
+		{
+			cout<<"**TRIANGULO ISOSCELES"<<endl;
+		}
+	
+			if (d1!=d2 && d2!=d3 && d3!=d1)
+			{
+				cout<<"**TRIANGULO ESCALENO"<<endl;
+			}
+		
+
+	
+}
+
+void main()
+{
+	punto P1,P2,P3;
+	int i=0;
+	while (i==0)
+	{
+	cout<<"-----COORDENADAS P1-----"<<endl;
+	P1.leer();
+	P1.mostrar();
+
+	cout<<"-----COORDENADAS P2-----"<<endl;
+	P2.leer();
+	P2.mostrar();
+
+	cout<<"-----COORDENADAS P3-----"<<endl;
+	P3.leer();
+	P3.mostrar();
+
+	cout<<endl<<"CLASE DE TRIANGULOS"<<endl;
+	cout<<"El triangulo formado por los puntos ingresados es: "<<endl;
+	P1.esTriangulo(P2,P3);
+	}
+
+	getch();
+}
