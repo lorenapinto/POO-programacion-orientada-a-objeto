@@ -1,0 +1,87 @@
+
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
+#include "vector.h"
+
+using namespace std;
+
+class conjunto: public vector
+{
+	//no hay private pq no tiene atributos propios, solo hereda los del vector
+public:
+	void juntar(conjunto A, conjunto B);
+	void copiar(conjunto A);
+	void Union(conjunto A, conjunto B);
+	void interseccion(conjunto A, conjunto B);
+	void Diferencia(conjunto A, conjunto B);
+	void DiferenciaSim(conjunto A, conjunto B);
+	bool subConjunto(conjunto A);
+	bool pertenece(int x); //verifica si el elemento existe en el conjunto 
+	bool iguales(conjunto &A);
+};
+
+bool conjunto::pertenece(int x)
+{
+	int i=0;
+	while(i<n)
+	{
+		if(x==v[i])
+			return true;
+		else
+			i++;
+	}
+	return false;
+}
+
+void conjunto::copiar(conjunto A)
+{
+	int i=0;
+	while(i<A.getDim())
+	{
+		insertarUltimo(A.getElem(i));
+		i++;
+	}
+}
+
+void conjunto::juntar(conjunto A, conjunto B)
+{
+	copiar(A);
+	copiar(B);
+}
+
+void conjunto::interseccion(conjunto A, conjunto B)
+{
+	A.eliminarDuplicados();
+	B.eliminarDuplicados();
+	copiar(A);
+	copiar(B);
+	eliminarNoDuplicados();
+	eliminarDuplicados();
+}
+
+void conjunto::Union(conjunto A, conjunto B)
+{
+	juntar(A,B);
+	eliminarDuplicados();
+}
+
+void main()
+{
+	conjunto A,B,C;
+	cout<<"CONJUNTO A"<<endl;
+	A.leer();
+	A.imprimir();
+	cout<<endl;
+	cout<<"CONJUNTO B"<<endl;
+	B.leer();
+	B.imprimir();
+	cout<<endl;
+	C.Union(A,B);
+	C.imprimir();
+
+	getch();
+
+}
+
+
