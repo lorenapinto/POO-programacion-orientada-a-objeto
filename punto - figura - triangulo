@@ -1,0 +1,207 @@
+#include "stdafx.h"
+#include "conio.h"
+#include "math.h"
+#include <iostream>
+
+using namespace std;
+
+class punto
+{
+protected:
+	int x;
+	int y;
+public:
+	punto ()
+	{
+		x=0;
+		y=0;
+	}
+	void setX (int a)
+	{
+		x=a;
+	}
+	void setY(int b)
+	{
+		y=b;
+	}
+	int getX()
+	{
+		return x;
+	}
+	int getY()
+	{
+		return y;
+	}
+
+	void leerPunto ();
+	void MostrarPunto ();
+	float Distancia (punto p2);
+};
+
+void punto::leerPunto ()
+{
+	int a,b;
+	cout<<"X= ";
+	cin>>a;
+	setX(a);
+	cout<<"Y= ";
+	cin>>b;
+	setY(b);
+	cout<<endl<<endl;
+}
+
+void punto::MostrarPunto ()
+{
+	cout<<"("<<x<<","<<y<<")"<<endl;
+}
+
+float punto::Distancia (punto p2)
+{
+	float a,b,d;
+	a=(p2.getX()-getX());
+	b=(p2.getY()-getY());
+	return sqrt((a*a)+(b*b));
+	
+
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include "stdafx.h"
+#include "conio.h"
+#include "math.h"
+#include <iostream>
+#include "punto.h"
+
+using namespace std;
+
+class figura: public punto
+{
+protected:
+	int codigo;
+	int cantLados;
+public:
+	figura()
+	{
+		codigo=0;
+		cantLados=0;
+	}
+	void setCodigo (int a)
+	{
+		codigo=a;
+	}
+	void setcantLados (int b)
+	{
+		cantLados=b;
+	}
+	int getCodigo()
+	{
+		return codigo;
+	}
+	int getantLados()
+	{
+		return cantLados;
+	}
+
+	void leerCodigo();
+	void leercantLados ();
+};
+
+void figura::leerCodigo()
+{
+	int a;
+	cout<<"Codigo: ";
+	cin>>a;
+	setCodigo(a);
+}
+
+void figura::leercantLados()
+{
+	int b;
+	do
+	{
+		cout<<"Cantidad Lados: ";
+		cin>>b;
+	}while (b!=3);
+	setcantLados(b);
+}
+
+
+
+
+
+class triangulo: public figura
+{
+public:
+	punto P1;
+	punto P2;
+	punto P3;
+
+	void leerTriangulo();
+	void verificarTriangulo(float d1, float d2, float d3);
+};
+
+void triangulo::leerTriangulo()
+{
+	figura::leerCodigo();
+	figura::leercantLados();
+}
+
+void triangulo::verificarTriangulo(float d1, float d2, float d3)
+{
+	if (d1==d2 && d2==d3)
+	{
+		cout<<"**TRIANGULO EQUILATERO"<<endl;
+	}
+
+		if ((d1==d2 && d2!=d3) || (d2==d3 && d3!=d1) || (d3==d1 && d1!=d2))
+		{
+			cout<<"**TRIANGULO ISOSCELES"<<endl;
+		}
+	
+			if (d1!=d2 && d2!=d3 && d3!=d1)
+			{
+				cout<<"**TRIANGULO ESCALENO"<<endl;
+			}
+
+}
+
+void main()
+{
+	punto P1,P2,P3;
+	float d1,d2,d3;
+	triangulo T1;
+	cout<<"TRIANGULO 1"<<endl;
+	T1.leerTriangulo();
+	cout<<"Punto 1" <<endl;
+	P1.leerPunto();
+	P1.MostrarPunto();
+	cout<<endl<<"Punto 2" <<endl;
+	P2.leerPunto();
+	P2.MostrarPunto();
+	cout<<endl<<"Punto 3" <<endl;
+	P3.leerPunto();
+	P3.MostrarPunto();
+	cout<<"Verificar el triangulo ingresado: "<<endl;
+	d1=P1.Distancia(P2);
+	d2=P2.Distancia (P3);
+	d3=P1.Distancia(P3);
+	T1.verificarTriangulo(d1,d2,d3);
+
+	getch();
+
+}
+
+
