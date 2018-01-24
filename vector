@@ -1,37 +1,36 @@
-#include "stdafx.h"
-#include "conio.h"
-#include <iostream>
-#include "math.h"
 
+#include "stdafx.h"
+#include <iostream>
+#include "conio.h"
 
 using namespace std;
 
-typedef int tipoElem;
+typedef int tipoElem; //para poder camiar el tipo de dato del vector
 const int MAX=50;
 
-
-class vector 
+class vector
 {
-private:
+protected:
+
 	tipoElem v[MAX];
 	int n;
+
 public:
-	vector ()
+	vector()
 	{
 		n=0;
 	}
-	void setElem (tipoElem x,int p)
+	void setElem(tipoElem x, int p) //el elemento de tipoElem se pone en la pos p
 	{
 		v[p]=x;
 	}
-	
-	tipoElem getElem(int p)
+	tipoElem getElem(int p) //me devuelve el elemento de tipoElem de la pos p
 	{
 		return v[p];
 	}
-	void setDim(int d)
+	void setDim(int a)
 	{
-		n=d;
+		n=a;
 	}
 	int getDim()
 	{
@@ -39,62 +38,75 @@ public:
 	}
 	void leer();
 	void imprimir();
+	/*bool vacio()
+	{return n==0;}
+	bool lleno()
+	{return n==MAX;}
+	*/
 	bool vacio()
 	{
-		return n==0;
+		if(n==0)
+			return true;
+		else
+			return false;
 	}
-	bool lleno ()
+	bool lleno()
 	{
-		return n==MAX;
+		if(n==50)
+			return true;
+		else
+			return false;
 	}
-	void insertar (tipoElem x, int p);
-	void insertarPrimero (tipoElem x);
-	void insertarUltimo (tipoElem x);
-	void eliminar (int p);
-	void eliminarUltimo (tipoElem x);
+	void insertar(tipoElem x, int p);
+	void eliminar(int p);
+	void insertarUltimo(tipoElem x);
+	void insertarPrimero(tipoElem x);
+	void eliminarUltimo();
+	void eliminarPrimero();
+	void eliminarDuplicados();
+	void eliminarNoDuplicados();
+	void intercalar(vector v1, vector v2);
+	void fusionar(vector v1, vector v2);
 
-	void unirVectores (vector v1, vector v2);
-	void eliminarNoDupli (vector v1, vector v2);
-};
+}; //end class
 
 void vector::leer()
 {
-	 int m;
-	 tipoElem x;
-	 cout<<"Cantidad de elementos: ";
-	 cin>>m;
-	 for (int i=0; i<m;i++)
-	 {
-		 cout<<"Elem: ";
-		 cin>>x;
-		 insertarUltimo(x);
-	 }
-	 
-}
-void vector:: imprimir()
-{
-	for (int i=0; i<n; i++)
+	int m;
+	cout<<"cantidad de elementos: ";
+	cin>>m;
+	int x;
+	for(int i=0;i<m;i++)
 	{
-		cout<<v[i]<<" ";
+		cout<<"v["<<i+1<<"]= ";
+		cin>>x;
+		insertarUltimo(x);
 	}
-	cout<<endl;
-
 }
+void vector::imprimir()
+{
+	int i=0;
+	while(i<getDim())
+	{
+		cout<<getElem(i)<<" ";
+		i++;
+	}
+}
+
 void vector::insertar(tipoElem x, int p)
 {
-	if (p<0 || p>n)
+	if(p<0||p>n)
 	{
-		cout<<"Posicion no valida !! "<<endl;
-		return;
+		cout<<"posicion no valida"<<endl;
+		return ;
 	}
-
-	if (lleno ())
+	if(lleno())
 	{
-		cout<<"Vector lleno !"<<endl;
-		return;
+		cout<<"vector lleno"<<endl;
+		return ;
 	}
 	int k=n-1;
-	while (k>=p)
+	while(k>=p)
 	{
 		v[k+1]=v[k];
 		k--;
@@ -103,69 +115,134 @@ void vector::insertar(tipoElem x, int p)
 	n=n+1;
 }
 
-void vector:: eliminar (int p)
+void vector::eliminar(int p)
 {
-	if (p<0 || p>=n)
+	if(p<0||p>n)
 	{
-		cout<<"Posicion no valida !! "<<endl;
-		return;
+		cout<<"posicion no valida"<<endl;
+		return ;
 	}
-	if (vacio ())
+	if(vacio())
 	{
-		cout<<"Vector lleno !"<<endl;
-		return;
+		cout<<"vector vacio"<<endl;
+		return ;
 	}
 	int k=p+1;
-	while (k<n)
+	while(k<n)
 	{
 		v[k-1]=v[k];
 		k++;
 	}
 	n=n-1;
-}
-
-void vector:: insertarPrimero (tipoElem x)
-{
-	insertar(x,0);
 
 }
 
-void vector::insertarUltimo (tipoElem x)
+void vector::insertarUltimo(tipoElem x)
 {
 	insertar(x,n);
 }
-
-void vector::unirVectores (vector v1, vector v2)
+void vector::insertarPrimero(tipoElem x)
 {
-	int i,k,p;
-	for (i=0; i<(v1.getDim()); i++)
+	insertar(x,0);
+}
+void vector::eliminarUltimo()
+{
+	eliminar(n-1);
+}
+void vector::eliminarPrimero()
+{
+	eliminar(0);
+}
+void vector::eliminarDuplicados()
+{
+	int i=0,j;
+	while(i<n)
 	{
-		setElem(v1.getElem(i),p);
-		p++;
-	}
-	for (k=0; k<(v2.getDim()); k++)
-	{
-		setElem(v2.getElem(i),p);
+		j=i+1;
+		while(j<n)
+		{
+			if(v[i]==v[j])
+				eliminar(j);
+			else
+				j++;
+		}
 		i++;
-		p++;
-		k++;
 	}
 }
 
-
-
-void main()
+void vector::eliminarNoDuplicados()
 {
-	vector v1,v2,v3;
-	cout<<"VECTOR 1:"<<endl;
-	v1.leer();
-	v1.imprimir();
-	cout<<endl<<"VECTOR 2:"<<endl;
-	v2.leer();
-	v2.imprimir();
-	cout<<endl;
-	v3.unirVectores(v1,v2);
-	v3.imprimir();
-	getch();
+	int i,band,j;
+	i=0;
+	while(i<n)
+	{
+		j=0;
+		band=0;
+		while(j<n)
+		{
+			if(i!=j && v[i]==v[j])
+			{
+				band=1;
+				j++;
+			}
+			else
+				j++;
+		}
+		if(band==0)
+			eliminar(i);
+		else
+			i++;
+	}
+}
 
+void vector::fusionar(vector v1, vector v2)
+{
+	int i=0;
+	int j=0;
+	while(i<getDim()&&j<v2.getDim())
+	{
+		if(v1.getElem(i)<v2.getElem(j))
+		{
+			insertarUltimo(v1.getElem(i));
+			i++;
+		}
+		else
+		{
+			insertarUltimo(v2.getElem(j));
+			j++;
+		}
+	}
+	while(i<v1.getDim())
+	{
+		insertarUltimo(v1.getElem(i));
+		i++;
+	}
+	while(j<v2.getDim())
+	{
+		insertarUltimo(v2.getElem(j));
+		j++;
+	}
+}
+
+void vector::intercalar(vector v1,vector v2)
+{
+	int i=0;
+	int j=0;
+	while(i<v1.getDim()&&j<v2.getDim())
+	{
+		insertarUltimo(v1.getElem(i));
+		insertarUltimo(v2.getElem(j));
+		i++;
+		j++;
+	}
+	while(i<v1.getDim())
+	{
+		insertarUltimo(v1.getElem(i));
+		i++;
+	}
+	while(j<v2.getDim())
+	{
+		insertarUltimo(v2.getElem(j));
+		j++;
+	}
 }
