@@ -1,0 +1,171 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "math.h"
+
+
+using namespace std;
+
+typedef int tipoElem;
+const int MAX=50;
+
+
+class vector 
+{
+private:
+	tipoElem v[MAX];
+	int n;
+public:
+	vector ()
+	{
+		n=0;
+	}
+	void setElem (tipoElem x,int p)
+	{
+		v[p]=x;
+	}
+	
+	tipoElem getElem(int p)
+	{
+		return v[p];
+	}
+	void setDim(int d)
+	{
+		n=d;
+	}
+	int getDim()
+	{
+		return n;
+	}
+	void leer();
+	void imprimir();
+	bool vacio()
+	{
+		return n==0;
+	}
+	bool lleno ()
+	{
+		return n==MAX;
+	}
+	void insertar (tipoElem x, int p);
+	void insertarPrimero (tipoElem x);
+	void insertarUltimo (tipoElem x);
+	void eliminar (int p);
+	void eliminarUltimo (tipoElem x);
+
+	void unirVectores (vector v1, vector v2);
+	void eliminarNoDupli (vector v1, vector v2);
+};
+
+void vector::leer()
+{
+	 int m;
+	 tipoElem x;
+	 cout<<"Cantidad de elementos: ";
+	 cin>>m;
+	 for (int i=0; i<m;i++)
+	 {
+		 cout<<"Elem: ";
+		 cin>>x;
+		 insertarUltimo(x);
+	 }
+	 
+}
+void vector:: imprimir()
+{
+	for (int i=0; i<n; i++)
+	{
+		cout<<v[i]<<" ";
+	}
+	cout<<endl;
+
+}
+void vector::insertar(tipoElem x, int p)
+{
+	if (p<0 || p>n)
+	{
+		cout<<"Posicion no valida !! "<<endl;
+		return;
+	}
+
+	if (lleno ())
+	{
+		cout<<"Vector lleno !"<<endl;
+		return;
+	}
+	int k=n-1;
+	while (k>=p)
+	{
+		v[k+1]=v[k];
+		k--;
+	}
+	v[p]=x;
+	n=n+1;
+}
+
+void vector:: eliminar (int p)
+{
+	if (p<0 || p>=n)
+	{
+		cout<<"Posicion no valida !! "<<endl;
+		return;
+	}
+	if (vacio ())
+	{
+		cout<<"Vector lleno !"<<endl;
+		return;
+	}
+	int k=p+1;
+	while (k<n)
+	{
+		v[k-1]=v[k];
+		k++;
+	}
+	n=n-1;
+}
+
+void vector:: insertarPrimero (tipoElem x)
+{
+	insertar(x,0);
+
+}
+
+void vector::insertarUltimo (tipoElem x)
+{
+	insertar(x,n);
+}
+
+void vector::unirVectores (vector v1, vector v2)
+{
+	int i,k,p;
+	for (i=0; i<(v1.getDim()); i++)
+	{
+		setElem(v1.getElem(i),p);
+		p++;
+	}
+	for (k=0; k<(v2.getDim()); k++)
+	{
+		setElem(v2.getElem(i),p);
+		i++;
+		p++;
+		k++;
+	}
+}
+
+
+
+void main()
+{
+	vector v1,v2,v3;
+	cout<<"VECTOR 1:"<<endl;
+	v1.leer();
+	v1.imprimir();
+	cout<<endl<<"VECTOR 2:"<<endl;
+	v2.leer();
+	v2.imprimir();
+	cout<<endl;
+	v3.unirVectores(v1,v2);
+	v3.imprimir();
+	getch();
+
+}
