@@ -1,0 +1,248 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+
+using namespace std;
+
+class distancia
+{
+protected:
+	int mt;
+	int cm;
+	int mm;
+public:
+	distancia()
+	{
+		mt=0;
+		cm=0;
+		mm=0;
+	}
+	void setMetro (int M)
+	{
+		mt=M;
+	}
+	void setCentimetro (int c)
+	{
+		cm=c;
+	}
+	void setMilimetro (int m)
+	{
+		mm=m;
+	}
+
+	int getMetro ()
+	{
+		return mt;
+	}
+	int getCentimetro ()
+	{
+		return cm;
+	}
+	int getMilimetro ()
+	{
+		return mm;
+	}
+	
+	void leerDistancia();
+	void mostrarDistancia();
+	distancia mayor (distancia d1);
+	void aumentarMilimetro (int m);
+};
+
+void distancia::leerDistancia()
+{
+	int M,c,m;
+	cout<<"Metro: ";
+	cin>>M;
+	setMetro(M);
+	cout<<"Centimetro: ";
+	cin>>c;
+	setCentimetro(c);
+	cout<<"Milimetro: ";
+	cin>>m;
+	setMilimetro(m);
+	cout<<endl;
+}
+
+void distancia::mostrarDistancia()
+{
+	cout<<mt<<"."<<cm<<"."<<mm<<endl;
+}
+
+distancia distancia:: mayor (distancia d1)
+{
+	int dist1,dist2;
+	dist2=(getMetro()*1000)+(getCentimetro()*10)+getMilimetro();
+	dist1=(d1.getMetro()*1000)+(d1.getCentimetro()*10)+d1.getMilimetro();
+	if(dist1>dist2)
+		return d1;
+	else
+		return *this;
+}
+
+void distancia::aumentarMilimetro (int m)
+{
+	int dist1;
+	dist1=(getMetro()*1000)+(getCentimetro()*10)+getMilimetro();
+	dist1=dist1+m;
+	mt=dist1/1000;
+	cm=(dist1%1000)/10;
+	mm=(dist1%1000)%10;
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#include "distancia.h"
+
+using namespace std;
+
+class terreno: public distancia
+{
+private:
+	int nroLote;
+	int manzano;
+	char ubicacion[40];
+	distancia ancho;
+	distancia largo;
+public:
+	terreno()
+	{
+		nroLote=0;
+		manzano=0;
+		ubicacion[40]='a';
+	}
+	void setnroLote (int n)
+	{
+		nroLote=n;
+	}
+	void setAncho (distancia a)
+	{
+		ancho=a;
+	}
+	void setLargo (distancia l)
+	{
+		largo=l;
+	}
+	void setManzano (int m)
+	{
+		manzano=m;
+	}
+	void setUbicacion (char a[40])
+	{
+		ubicacion[40]=a[40];
+	}
+	int getManzano ()
+	{
+		return manzano;
+	}
+	int getnroLote ()
+	{
+		return nroLote;
+	}
+	distancia getLargo()
+	{
+		return largo;
+	}
+	distancia getAncho()
+	{
+		return ancho;
+	}
+	char getUbicacion ()
+	{
+		return ubicacion[40];
+	}
+	void leernroLote();
+	void leerManzano();
+	void leerAncho();
+	void leerLargo();
+	void leerUbicacion()
+	{
+		cout<<"Ingrese Ubicacion: "<<endl;
+		cin>>ubicacion;
+	}
+	
+	int calcularSuperficie();
+};
+
+void terreno:: leernroLote()
+{
+	int n;
+	cout<<"Nro Lote: ";
+	cin>>n;
+	setnroLote(n);
+	cout<<endl;
+}
+
+void terreno::leerManzano()
+{
+	int m;
+	cout<<"Manzano: ";
+	cin>>m;
+	setManzano(m);
+	cout<<endl;
+}
+
+void terreno::leerAncho()
+{
+	ancho.leerDistancia();
+}
+
+void terreno::leerLargo()
+{
+	largo.leerDistancia();
+}
+
+
+int terreno::calcularSuperficie()
+{
+	int a,l;
+	a=(ancho.getMetro()*1000)+(ancho.getCentimetro()*10)+ancho.getMilimetro();
+	l=(largo.getMetro()*1000)+(largo.getCentimetro()*10)+largo.getMilimetro();
+	cout<<a<<endl;
+	cout<<l<<endl;
+	return (a*l);
+}
+
+
+void main()
+{
+	terreno T1;
+	distancia ancho;
+	distancia largo;
+	int superficie;
+	cout<<"-----TERRENO 1-----"<<endl;
+	T1.leernroLote();
+	T1.leerManzano();
+	T1.leerUbicacion();
+	cout<<"---Ancho "<<endl;
+	T1.leerAncho();
+	cout<<"---Largo "<<endl;
+	T1.leerLargo();
+	cout<<endl<<endl;
+	superficie=T1.calcularSuperficie();
+	cout<<"Calculo superficie del terreno: "<<superficie<<" mm2"<<endl;
+	getch();
+}
