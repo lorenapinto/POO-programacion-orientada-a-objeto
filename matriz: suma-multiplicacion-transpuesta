@@ -1,0 +1,181 @@
+#include "stdafx.h"
+#include "conio.h"
+#include <iostream>
+#define MAX 20
+
+using namespace std;
+
+class matriz
+{
+private:
+	int fila;
+	int columna;
+	int MAT[MAX][MAX];
+public:
+	matriz()
+	{
+		fila=0;
+		columna=0;
+	}
+	void setFil(int f)
+	{
+		fila=f;
+	}
+	int getFil()
+	{
+		return fila;
+	}
+	void setCol(int c)
+	{
+		columna=c;
+	}
+	int getCol()
+	{
+		return columna;
+	}
+	void setMat(int x,int i,int j)
+	{
+		MAT[i][j]=x;
+	}
+	int getMat(int i, int j)
+	{
+		return MAT[i][j];
+	}
+	void leer();
+	void mostrar();
+	matriz sumar (matriz b);
+	void multiplicar (matriz a, matriz b);
+	void transpuesta (matriz a);
+	void fibonacci (matriz a);
+};
+
+void matriz::leer()
+{
+	int fil,col,x;
+	cout<<"Fila: ";
+	cin>>fil;
+	setFil(fil);
+	cout<<"Columna: ";
+	cin>>col;
+	setCol(col);
+	for(int i=0; i<getFil();i++)
+	{
+		for (int j=0; j<getCol(); j++)
+		{
+			cout<<"M["<<i<<"]["<<j<<"]= ";
+			cin>>x;
+			setMat(x,i,j);
+		}
+	}
+}
+void matriz::mostrar()
+{
+	for(int i=0; i<getFil();i++)
+	{
+		for (int j=0; j<getCol(); j++)
+		{
+			cout<<getMat(i,j)<<"\t";
+		}
+		cout<<endl;
+	}
+}
+matriz matriz::sumar (matriz b)
+{
+	int x;
+	matriz s;
+	s.setFil(getFil());
+	s.setCol(getCol());
+	for (int i=0; i<getFil(); i++)
+	{
+		for (int j=0; j<getCol(); j++)
+		{
+			x=getMat(i,j)+b.getMat(i,j);
+			s.setMat(x,i,j);
+		}
+	}
+	return s;
+}
+void matriz::multiplicar(matriz a,matriz b)
+{
+	int x=0;
+	setFil(a.getFil());
+	setCol(b.getCol());
+
+	for (int i=0; i<a.getFil(); i++)
+	{
+		for (int j=0; j<b.getCol(); j++)
+		{
+			for (int k=0; k<a.getCol();k++)
+			{
+				x=x+(a.getMat(i,k)*b.getMat(k,j));
+			}
+			setMat(x,i,j);
+			x=0;
+		}
+	}
+}
+void matriz::transpuesta (matriz a)
+{
+	int x;
+	setFil(a.getCol());
+	setCol (a.getFil());
+	for (int i=0; i<a.getCol();i++)
+	{
+		for(int j=0;j<a.getFil();j++)
+		{
+			x=a.getMat(j,i);
+			setMat(x,i,j);
+		}
+		x=0;
+	}
+}
+
+void main()
+{
+	matriz a,b;
+	matriz suma,m,t;
+	cout<<"-------MATRIZ A------"<<endl;
+	a.leer();
+	a.mostrar();
+	cout<<"-------MATRIZ B------"<<endl;
+	b.leer();
+	b.mostrar();
+	
+
+
+
+	if((a.getFil()==b.getFil()) && (a.getCol()==b.getCol()))
+	{
+		cout<<"La suma es: "<<endl;
+		suma=a.sumar(b);
+		suma.mostrar();
+	}
+	else
+	{
+		cout<<"No se puede realizar la suma"<<endl;
+	}
+
+
+
+
+
+
+	if(a.getCol()==b.getFil())
+	{
+		cout<<"La multiplicacion es: "<<endl;
+		m.multiplicar(a,b);
+		m.mostrar();
+	}
+	else
+	{
+		cout<<"No se puede realizar la multiplicacion"<<endl;
+	}
+
+
+
+	cout<<"La matriz transpuesta de A: "<<endl;
+	t.transpuesta(a);
+	t.mostrar();
+	getch();
+
+}
